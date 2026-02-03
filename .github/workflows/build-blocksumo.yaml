@@ -17,7 +17,7 @@ jobs:
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
           gradle-command: "gradle blocksumo:build --no-daemon"
-          dockerfile-path: 'blocksumo/Dockerfile'
+          dockerfile-path: './blocksumo/Dockerfile'
 
   deploy:
     needs: "build"

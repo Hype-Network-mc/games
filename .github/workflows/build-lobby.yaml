@@ -17,7 +17,7 @@ jobs:
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
           gradle-command: "gradle lobby:build --no-daemon"
-          dockerfile-path: 'lobby/Dockerfile'
+          dockerfile-path: './lobby/Dockerfile'
 
   deploy:
     needs: "build"
