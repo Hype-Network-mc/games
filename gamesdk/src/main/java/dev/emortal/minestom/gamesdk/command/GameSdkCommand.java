@@ -1,6 +1,6 @@
 package dev.emortal.minestom.gamesdk.command;
 
-import dev.emortal.minestom.core.module.core.player.EmortalPlayer;
+import dev.emortal.minestom.core.module.core.playerprovider.EmortalPlayer;
 import dev.emortal.minestom.gamesdk.config.GameCreationInfo;
 import dev.emortal.minestom.gamesdk.game.Game;
 import dev.emortal.minestom.gamesdk.internal.GameManager;
@@ -17,7 +17,9 @@ import net.minestom.server.command.builder.condition.CommandCondition;
 import net.minestom.server.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public final class GameSdkCommand extends Command {
 

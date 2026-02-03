@@ -1,16 +1,19 @@
 package dev.emortal.minestom.gamesdk.internal;
 
+import dev.emortal.minestom.core.utils.KurushimiMinestomUtils;
 import dev.emortal.minestom.gamesdk.MinestomGameServer;
-import dev.emortal.minestom.gamesdk.game.Game;
 import dev.emortal.minestom.gamesdk.config.GameCreationInfo;
 import dev.emortal.minestom.gamesdk.config.GameSdkConfig;
+import dev.emortal.minestom.gamesdk.game.Game;
 import dev.emortal.minestom.gamesdk.game.GameFinishedEvent;
 import dev.emortal.minestom.gamesdk.game.GameProvider;
 import dev.emortal.minestom.gamesdk.internal.listener.GameStatusListener;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.Meter;
+import io.micrometer.core.instrument.Metrics;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.entity.Player;
-import org.apache.kafka.common.metrics.stats.Meter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -41,9 +44,9 @@ public final class GameManager implements GameProvider {
 
         GameEventNodes.GAME_MANAGER.addListener(GameFinishedEvent.class, this::onGameFinish);
 
-//        Gauge.builder("gamesdk.game_count", this.games, Set::size)
-//                .description("The amount of games currently running")
-//                .register(Metrics.globalRegistry);
+        Gauge.builder("gamesdk.game_count", this.games, Set::size)
+                .description("The amount of games currently running")
+                .register(Metrics.globalRegistry);
     }
 
     private void initTestMode() {
@@ -79,10 +82,10 @@ public final class GameManager implements GameProvider {
             listener.onGameStart(game);
         }
 
-//        game.getMeters().add(Gauge.builder("gamesdk.game_start_time", System.currentTimeMillis(), Long::doubleValue)
-//                .tag("gameId", game.getCreationInfo().id())
-//                .description("The time the game started")
-//                .register(Metrics.globalRegistry));
+        game.getMeters().add(Gauge.builder("gamesdk.game_start_time", System.currentTimeMillis(), Long::doubleValue)
+                .tag("gameId", game.getCreationInfo().id())
+                .description("The time the game started")
+                .register(Metrics.globalRegistry));
     }
 
     private void removeGame(@NotNull Game game) {
@@ -110,12 +113,10 @@ public final class GameManager implements GameProvider {
         this.removeGame(game);
         switch (this.config.finishBehaviour()) {
             case LOBBY ->
-                System.out.println("Would send to lobby but no matchmaking lol");
-//                    KurushimiMinestomUtils.sendToLobby(game.getPlayers(), () -> this.cleanUpGame(game), () -> this.cleanUpGame(game));
+                    KurushimiMinestomUtils.sendToLobby(game.getPlayers(), () -> this.cleanUpGame(game), () -> this.cleanUpGame(game));
             case REQUEUE ->
-                System.out.println("Would send to gamemode but no matchmaking lol");
-//                    KurushimiMinestomUtils.sendToGamemode(game.getPlayers(), game.getCreationInfo().gameModeId(),
-//                            () -> this.cleanUpGame(game), () -> this.cleanUpGame(game), 1);
+                    KurushimiMinestomUtils.sendToGamemode(game.getPlayers(), game.getCreationInfo().gameModeId(),
+                            () -> this.cleanUpGame(game), () -> this.cleanUpGame(game), 1);
         }
     }
 
@@ -123,7 +124,7 @@ public final class GameManager implements GameProvider {
         LOGGER.info("Cleaning up game {}", game.getCreationInfo().id());
         this.kickAllRemainingPlayers(game);
         game.cleanUp();
-//        game.getMeters().forEach(Meter::close);
+        game.getMeters().forEach(Meter::close);
 
         // We call this here to ensure all the game's players are disconnected and the game is unregistered, so the check for the
         // player count will actually see the new player count after the players are disconnected.

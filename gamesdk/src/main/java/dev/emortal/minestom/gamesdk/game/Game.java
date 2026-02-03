@@ -3,6 +3,9 @@ package dev.emortal.minestom.gamesdk.game;
 import dev.emortal.minestom.gamesdk.config.GameCreationInfo;
 import dev.emortal.minestom.gamesdk.internal.GameManager;
 import dev.emortal.minestom.gamesdk.util.GameEventPredicates;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.Meter;
+import io.micrometer.core.instrument.Metrics;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.adventure.audience.PacketGroupingAudience;
 import net.minestom.server.entity.Player;
@@ -10,7 +13,6 @@ import net.minestom.server.event.Event;
 import net.minestom.server.event.EventFilter;
 import net.minestom.server.event.EventNode;
 import net.minestom.server.instance.Instance;
-import org.apache.kafka.common.metrics.stats.Meter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -20,7 +22,7 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class Game implements PacketGroupingAudience, TrackableGame {
-//    protected final @NotNull Set<Meter> meters = new HashSet<>();
+    protected final @NotNull Set<Meter> meters = new HashSet<>();
 
     private final @NotNull GameCreationInfo creationInfo;
     private final @NotNull EventNode<Event> eventNode;
@@ -35,10 +37,10 @@ public abstract class Game implements PacketGroupingAudience, TrackableGame {
         this.creationInfo = creationInfo;
         this.eventNode = this.createEventNode();
 
-//        this.meters.add(Gauge.builder("gamesdk.game_player_count", this, game -> game.getPlayers().size())
-//                .tag("gameId", this.creationInfo.id())
-//                .description("The amount of players currently in the game")
-//                .register(Metrics.globalRegistry));
+        this.meters.add(Gauge.builder("gamesdk.game_player_count", this, game -> game.getPlayers().size())
+                .tag("gameId", this.creationInfo.id())
+                .description("The amount of players currently in the game")
+                .register(Metrics.globalRegistry));
     }
 
     /**
@@ -78,9 +80,9 @@ public abstract class Game implements PacketGroupingAudience, TrackableGame {
      */
     public abstract void onLeave(@NotNull Player player);
 
-//    public @NotNull Set<Meter> getMeters() {
-//        return this.meters;
-//    }
+    public @NotNull Set<Meter> getMeters() {
+        return this.meters;
+    }
 
     public abstract @NotNull Instance getSpawningInstance(@NotNull Player player);
 
