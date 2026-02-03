@@ -87,7 +87,7 @@ public final class LightsOutFeature implements LobbyFeature {
 
         AbsoluteBlockBatch batch = new AbsoluteBlockBatch(new BatchOption().setSendUpdate(false));
         this.reset(batch);
-        batch.apply(event.getInstance(), () -> event.getInstance().getChunkAt(BOTTOM_RIGHT).sendChunk());
+        batch.apply(event.getInstance(), (_) -> event.getInstance().getChunkAt(BOTTOM_RIGHT).sendChunk());
     }
 
     private void reset(@NotNull AbsoluteBlockBatch batch) {
