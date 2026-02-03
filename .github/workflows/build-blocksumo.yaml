@@ -6,6 +6,7 @@ on:
     paths:
       - 'gamesdk/**'
       - 'core/**'
+      - '.github/workflows/build-blocksumo.yml'
       - 'blocksumo/**'
 
 jobs:
