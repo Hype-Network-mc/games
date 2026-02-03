@@ -16,8 +16,8 @@ jobs:
       - uses: "emortalmc/actions/java/build@main"
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-          java-version: "21"
-          java-distribution: "zulu"
+          gradle-command: "gradle blocksumo:build --no-daemon"
+          dockerfile-path: 'blocksumo/Dockerfile'
 
   deploy:
     needs: "build"
