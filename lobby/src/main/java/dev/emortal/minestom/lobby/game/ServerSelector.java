@@ -58,6 +58,7 @@ public final class ServerSelector {
         }
 
         MinecraftServer.getGlobalEventHandler().addListener(InventoryPreClickEvent.class, e -> {
+            if (e.getInventory() == this.inventory) return;
             if (e.getPlayer().getOpenInventory() != this.inventory) return;
             e.setCancelled(true);
         });

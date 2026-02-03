@@ -47,6 +47,7 @@ public class MusicPlayerInventory {
                 .build());
 
         MinecraftServer.getGlobalEventHandler().addListener(InventoryPreClickEvent.class, e -> {
+            if (e.getInventory() == INSTANCE.inventory) return;
             if (e.getPlayer().getOpenInventory() != INSTANCE.inventory) return;
             e.setCancelled(true);
         });

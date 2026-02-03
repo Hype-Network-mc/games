@@ -36,6 +36,7 @@ public class EmoteInventory extends Inventory {
                 .build());
 
         MinecraftServer.getGlobalEventHandler().addListener(InventoryPreClickEvent.class, e -> {
+            if (e.getInventory() == this) return;
             if (e.getPlayer().getOpenInventory() != this) return;
             e.setCancelled(true);
         });

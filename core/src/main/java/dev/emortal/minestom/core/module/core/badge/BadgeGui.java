@@ -88,6 +88,7 @@ public final class BadgeGui {
 
         this.drawInventory(allBadges, ownedBadgeIds, activeBadgeId);
         player.eventNode().addListener(InventoryPreClickEvent.class, e -> {
+            if (e.getInventory() == this.inventory) return;
             if (e.getPlayer().getOpenInventory() != this.inventory) return;
             e.setCancelled(true);
         });
