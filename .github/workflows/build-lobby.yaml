@@ -6,7 +6,7 @@ on:
     paths:
       - 'gamesdk/**'
       - 'core/**'
-      - '.github/workflows/build-lobby.yml'
+      - '.github/workflows/build-lobby.yaml'
       - 'lobby/**'
 
 jobs:
