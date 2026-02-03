@@ -1,0 +1,31 @@
+name: "Build and deploy LazerTag"
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'gamesdk/**'
+      - 'core/**'
+      - '.github/workflows/build-lazertag.yaml'
+      - 'lazertag/**'
+
+jobs:
+  build:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "emortalmc/actions/java/build@main"
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          gradle-command: "gradle lazertag:build --no-daemon"
+          dockerfile-path: './lazertag/Dockerfile'
+          dockerfile-context: './lazertag/'
+
+  deploy:
+    needs: "build"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "emortalmc/actions/argo-sync@main"
+        with:
+          deployment-name: "lazertag"
+          values-path: "server/values/lazertag.yaml"
+          deployments-repo-token: "${{ secrets.DEPLOYMENTS_REPO_TOKEN }}"
