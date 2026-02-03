@@ -16,6 +16,7 @@ jobs:
       - uses: "emortalmc/actions/java/build@main"
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
+          project: "lazertag"
           gradle-command: "gradle lazertag:build --no-daemon"
           dockerfile-path: './lazertag/Dockerfile'
           dockerfile-context: './lazertag/'

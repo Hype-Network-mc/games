@@ -16,6 +16,7 @@ jobs:
       - uses: "emortalmc/actions/java/build@main"
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
+          project: "minesweeper"
           gradle-command: "gradle minesweeper:build --no-daemon"
           dockerfile-path: './minesweeper/Dockerfile'
           dockerfile-context: './minesweeper/'

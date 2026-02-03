@@ -16,6 +16,7 @@ jobs:
       - uses: "emortalmc/actions/java/build@main"
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
+          project: "blocksumo"
           gradle-command: "gradle blocksumo:build --no-daemon"
           dockerfile-path: './blocksumo/Dockerfile'
           dockerfile-context: './blocksumo/'

@@ -16,6 +16,7 @@ jobs:
       - uses: "emortalmc/actions/java/build@main"
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
+          project: "parkourtag"
           gradle-command: "gradle parkourtag:build --no-daemon"
           dockerfile-path: './parkourtag/Dockerfile'
           dockerfile-context: './parkourtag/'

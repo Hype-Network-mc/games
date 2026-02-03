@@ -16,6 +16,7 @@ jobs:
       - uses: "emortalmc/actions/java/build@main"
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
+          project: "marathon"
           gradle-command: "gradle marathon:build --no-daemon"
           dockerfile-path: './marathon/Dockerfile'
           dockerfile-context: './marathon/'
