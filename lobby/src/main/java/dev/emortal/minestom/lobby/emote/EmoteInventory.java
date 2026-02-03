@@ -3,6 +3,7 @@ package dev.emortal.minestom.lobby.emote;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.minestom.server.MinecraftServer;
 import net.minestom.server.component.DataComponents;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.inventory.InventoryPreClickEvent;
@@ -33,6 +34,11 @@ public class EmoteInventory extends Inventory {
         this.setItemStack(8, ItemStack.builder(Material.BARRIER)
                 .set(DataComponents.ITEM_NAME, Component.text("Stop", NamedTextColor.RED))
                 .build());
+
+        MinecraftServer.getGlobalEventHandler().addListener(InventoryPreClickEvent.class, e -> {
+            if (e.getPlayer().getOpenInventory() != this) return;
+            e.setCancelled(true);
+        });
 
         this.eventNode().addListener(InventoryPreClickEvent.class, event -> {
             event.setCancelled(true);

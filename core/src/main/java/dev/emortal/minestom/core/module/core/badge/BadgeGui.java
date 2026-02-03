@@ -87,6 +87,10 @@ public final class BadgeGui {
         this.canChangeActive = canChangeActive;
 
         this.drawInventory(allBadges, ownedBadgeIds, activeBadgeId);
+        player.eventNode().addListener(InventoryPreClickEvent.class, e -> {
+            if (e.getPlayer().getOpenInventory() != this.inventory) return;
+            e.setCancelled(true);
+        });
         this.inventory.eventNode().addListener(InventoryPreClickEvent.class, this::onClick);
         player.openInventory(this.inventory);
     }

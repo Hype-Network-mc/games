@@ -57,6 +57,11 @@ public final class ServerSelector {
             this.createDisplayItem(config, 0);
         }
 
+        MinecraftServer.getGlobalEventHandler().addListener(InventoryPreClickEvent.class, e -> {
+            if (e.getPlayer().getOpenInventory() != this.inventory) return;
+            e.setCancelled(true);
+        });
+
         this.inventory.eventNode().addListener(InventoryPreClickEvent.class, this::handleInventoryClick);
 
         MinecraftServer.getSchedulerManager().buildTask(this::updatePlayerCounts)

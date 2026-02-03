@@ -46,6 +46,11 @@ public class MusicPlayerInventory {
                 .set(DataComponents.ITEM_NAME, Component.text("Stop", NamedTextColor.RED, TextDecoration.BOLD))
                 .build());
 
+        MinecraftServer.getGlobalEventHandler().addListener(InventoryPreClickEvent.class, e -> {
+            if (e.getPlayer().getOpenInventory() != INSTANCE.inventory) return;
+            e.setCancelled(true);
+        });
+
         inventory.eventNode().addListener(InventoryPreClickEvent.class, e -> {
             e.setCancelled(true);
 
