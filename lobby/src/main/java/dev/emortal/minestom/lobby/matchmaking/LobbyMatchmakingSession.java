@@ -60,9 +60,9 @@ public final class LobbyMatchmakingSession extends MatchmakingSession {
             .build();
 
     private static final char[] SPINNER = {'▘', '▖'};
-    private static final @NotNull String IN_QUEUE = "<spinner> <gradient:gold:white:%s>In Queue For <gradient:aqua:blue><bold><game><reset> <spinner>";
-    private static final @NotNull String COUNTDOWN = "<gradient:#ff9eed:#ff956b:%s>Teleporting to <gradient:aqua:blue><bold><game></bold></gradient> <white>(<player_count>/<max_players>)</white> in <white><time></white> seconds!";
-    private static final @NotNull String TELEPORTING = "<green>Teleporting to <gradient:aqua:blue><bold><game></bold></gradient>...";
+    private static final @NotNull String IN_QUEUE = "<spinner> <gradient:gold:white:%s>In Queue For <reset><game><reset> <spinner>";
+    private static final @NotNull String COUNTDOWN = "<gradient:#ff9eed:#ff956b:%s>Teleporting to <reset><game><reset> <white>(<player_count>/<max_players>)</white> in <white><time></white> seconds!";
+    private static final @NotNull String TELEPORTING = "<green>Teleporting to <reset><game><reset>...";
 
     private static final long SWITCH_TO_COUNTDOWN_MILLIS = 0;
 
@@ -183,11 +183,14 @@ public final class LobbyMatchmakingSession extends MatchmakingSession {
         switch (this.state) {
             case IN_QUEUE -> this.bossBar.name(this.createInQueueName());
             case COUNTDOWN -> {
-                long millisRemaining = this.teleportTime.toEpochMilli() - System.currentTimeMillis();
+                long teleportTime = this.teleportTime.toEpochMilli();
+                long millisRemaining = teleportTime - System.currentTimeMillis();
                 if (millisRemaining <= SWITCH_TO_COUNTDOWN_MILLIS) {
                     this.changeToTeleporting();
                     return;
                 }
+
+                this.bossBar.progress((float)millisRemaining / teleportTime);
                 this.bossBar.name(this.createCountdownName());
             }
             default -> {
@@ -261,7 +264,7 @@ public final class LobbyMatchmakingSession extends MatchmakingSession {
         String spinner = String.valueOf(getSpinnerChar());
         String miniValue = IN_QUEUE.formatted(gradient);
 
-        return MINI_MESSAGE.deserialize(miniValue, Placeholder.unparsed("spinner", spinner), Placeholder.unparsed("game", this.gameMode.friendlyName()));
+        return MINI_MESSAGE.deserialize(miniValue, Placeholder.unparsed("spinner", spinner), Placeholder.parsed("game", this.gameMode.displayItem().name()));
     }
 
     private @NotNull Component createCountdownName() {
@@ -272,7 +275,7 @@ public final class LobbyMatchmakingSession extends MatchmakingSession {
         int secondsToTeleport = (int) Math.ceil(millisToTeleport / 1000.0); // Always round up to prevent teleporting in 0 seconds
 
         return MINI_MESSAGE.deserialize(miniValue,
-                Placeholder.unparsed("game", this.gameMode.friendlyName()),
+                Placeholder.parsed("game", this.gameMode.displayItem().name()),
                 Placeholder.unparsed("time", String.valueOf(secondsToTeleport)),
                 Placeholder.unparsed("player_count", String.valueOf(this.pendingMatch.getPlayerCount())),
                 Placeholder.unparsed("max_players", String.valueOf(this.gameMode.maxPlayers()))
@@ -280,7 +283,7 @@ public final class LobbyMatchmakingSession extends MatchmakingSession {
     }
 
     private @NotNull Component createTeleportingName() {
-        return MINI_MESSAGE.deserialize(TELEPORTING, Placeholder.unparsed("game", this.gameMode.friendlyName()));
+        return MINI_MESSAGE.deserialize(TELEPORTING, Placeholder.parsed("game", this.gameMode.displayItem().name()));
     }
 
     private char getSpinnerChar() {

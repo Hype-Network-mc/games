@@ -5,10 +5,10 @@ import net.kyori.adventure.text.format.NamedTextColor;
 
 public final class CommonMatchmakerError {
     // Queue
-    public static final String QUEUE_SUCCESS = "<green>Queued for <mode>!</green>";
-    public static final String QUEUE_ERR_UNKNOWN = "<red>An unknown error occurred while trying to queue you for <mode>. Please try again later.</red>";
+    public static final String QUEUE_SUCCESS = "<green>Queued for <mode><reset><green>!</green>";
+    public static final String QUEUE_ERR_UNKNOWN = "<red>An unknown error occurred while trying to queue you for <mode><reset><red>. Please try again later.</red>";
     public static final Component QUEUE_ERR_ALREADY_IN_QUEUE = Component.text("You are already queued!", NamedTextColor.RED);
-    public static final String QUEUE_ERR_PARTY_TOO_LARGE = "<red>Your party is too large for <mode>. The maximum party size is <max> players.</red>";
+    public static final String QUEUE_ERR_PARTY_TOO_LARGE = "<red>Your party is too large for <mode><reset><red>. The maximum party size is <max> players.</red>";
     public static final Component PLAYER_PERMISSION_DENIED = Component.text("You do not have permission to queue your party", NamedTextColor.RED);
 
     // Dequeue

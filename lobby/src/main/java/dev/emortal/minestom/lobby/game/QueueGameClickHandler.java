@@ -33,7 +33,10 @@ final class QueueGameClickHandler {
         }
 
         switch (result) {
-            case SUCCESS -> player.sendMessage(Component.text("You have been queued for " + config.friendlyName(), NamedTextColor.GREEN));
+            case SUCCESS -> player.sendMessage(Component.text()
+                    .append(Component.text("You have been queued for ", NamedTextColor.GREEN))
+                    .append(MiniMessage.miniMessage().deserialize(config.displayItem().name()))
+                    .build());
             case ALREADY_IN_QUEUE -> player.sendMessage(CommonMatchmakerError.QUEUE_ERR_ALREADY_IN_QUEUE);
             case PARTY_TOO_LARGE -> {
                 var modeName = Placeholder.unparsed("mode", config.friendlyName());
@@ -41,7 +44,7 @@ final class QueueGameClickHandler {
                 player.sendMessage(MiniMessage.miniMessage().deserialize(CommonMatchmakerError.QUEUE_ERR_PARTY_TOO_LARGE, modeName, maxSize));
             }
             case GAME_MODE_DISABLED, INVALID_GAME_MODE, INVALID_MAP -> {
-                var modeName = Placeholder.unparsed("mode", config.friendlyName());
+                var modeName = Placeholder.parsed("mode", config.displayItem().name());
                 player.sendMessage(MiniMessage.miniMessage().deserialize(CommonMatchmakerError.QUEUE_ERR_UNKNOWN, modeName));
             }
             case NO_PERMISSION -> player.sendMessage(Component.text("You must be the party leader to queue for games", NamedTextColor.RED));

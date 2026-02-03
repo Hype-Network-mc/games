@@ -25,11 +25,10 @@ public final class DefaultMatchmakingSessionImpl extends MatchmakingSession {
 
     private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
 
-    // TODO let's have a 3, 2, 1 countdown before they get teleported.
-    private static final String MATCH_FOUND_MESSAGE = "<green><mode> match found!";
-    private static final String TELEPORTING_IN_MESSAGE = "<green>Teleporting in <time> seconds...</green>";
+    private static final String MATCH_FOUND_MESSAGE = "<white><mode> match found!";
+    private static final String TELEPORTING_IN_MESSAGE = "<gray>Teleporting in <white><time></white> seconds...</gray>";
     private static final Component TELEPORTING_MESSAGE = Component.text("Teleporting...", NamedTextColor.GREEN);
-    private static final String MATCH_CANCELLED_MESSAGE = "<mode> match cancelled.";
+    private static final String MATCH_CANCELLED_MESSAGE = "<mode><reset><red> match cancelled.";
 
     private final @NotNull ScheduledFuture<?> notificationTask;
     private final @NotNull GameModeConfig gameMode;
@@ -54,7 +53,7 @@ public final class DefaultMatchmakingSessionImpl extends MatchmakingSession {
 
     @Override
     public void onPendingMatchCreate(@NotNull PendingMatch match) {
-        this.player.sendMessage(MINI_MESSAGE.deserialize(MATCH_FOUND_MESSAGE, Placeholder.unparsed("mode", this.gameMode.friendlyName())));
+        this.player.sendMessage(MINI_MESSAGE.deserialize(MATCH_FOUND_MESSAGE, Placeholder.parsed("mode", this.gameMode.displayItem().name())));
         this.player.scheduler().submitTask(new NotifyTeleportTimeTask(this.player, match));
     }
 
@@ -65,7 +64,7 @@ public final class DefaultMatchmakingSessionImpl extends MatchmakingSession {
 
     @Override
     public void onPendingMatchCancelled(@NotNull PendingMatch match) {
-        var modeName = Placeholder.unparsed("mode", this.gameMode.friendlyName());
+        var modeName = Placeholder.parsed("mode", this.gameMode.displayItem().name());
         this.player.sendMessage(MINI_MESSAGE.deserialize(MATCH_CANCELLED_MESSAGE, modeName));
     }
 

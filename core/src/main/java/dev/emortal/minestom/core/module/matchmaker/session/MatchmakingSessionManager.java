@@ -31,8 +31,8 @@ import java.util.function.BiConsumer;
 public final class MatchmakingSessionManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(MatchmakingSessionManager.class);
 
-    private static final String QUEUE_RESTORED_MESSAGE = "<green>Your queue for <mode> has been transferred!</green>";
-    private static final String QUEUE_RESTORE_FAILED_MESSAGE = "<red>Your queue for <mode> could not be transferred! Please tell a staff member.</red>";
+    private static final String QUEUE_RESTORED_MESSAGE = "<green>Your queue for <mode><reset><green> has been transferred!</green>";
+    private static final String QUEUE_RESTORE_FAILED_MESSAGE = "<red>Your queue for <mode><reset><red> could not be transferred! Please tell a staff member.</red>";
 
     private final @NotNull MatchmakerService matchmaker;
     private final @NotNull MatchmakingSession.Creator sessionCreator;
@@ -210,7 +210,7 @@ public final class MatchmakingSessionManager {
         Ticket ticket = queueInfo.getTicket();
         GameModeConfig mode = this.gameModes.getConfig(ticket.getGameModeId());
 
-        var modeName = Placeholder.unparsed("mode", mode == null ? ticket.getGameModeId() : mode.friendlyName());
+        var modeName = Placeholder.parsed("mode", mode == null ? ticket.getGameModeId() : mode.displayItem().name());
         if (mode == null) {
             LOGGER.error("Failed to get game mode config '{}'", ticket.getGameModeId());
             player.sendMessage(MiniMessage.miniMessage().deserialize(QUEUE_RESTORE_FAILED_MESSAGE, modeName));

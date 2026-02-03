@@ -6,7 +6,6 @@ import dev.emortal.api.service.matchmaker.MatchmakerService;
 import dev.emortal.api.service.matchmaker.QueuePlayerResult;
 import dev.emortal.minestom.core.module.matchmaker.CommonMatchmakerError;
 import io.grpc.StatusRuntimeException;
-
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -83,29 +82,29 @@ public final class QueueCommand extends Command {
 
         switch (result) {
             case SUCCESS -> {
-                var modeNamePlaceholder = Placeholder.unparsed("mode", mode.friendlyName());
+                var modeNamePlaceholder = Placeholder.parsed("mode", mode.displayItem().name());
                 sender.sendMessage(MINI_MESSAGE.deserialize(CommonMatchmakerError.QUEUE_SUCCESS, modeNamePlaceholder));
             }
             case ALREADY_IN_QUEUE -> sender.sendMessage(CommonMatchmakerError.QUEUE_ERR_ALREADY_IN_QUEUE);
             case NO_PERMISSION -> sender.sendMessage(CommonMatchmakerError.PLAYER_PERMISSION_DENIED);
             case INVALID_MAP -> {
                 LOGGER.error("Invalid map for gamemode '{}'", mode.friendlyName());
-                var modeNamePlaceholder = Placeholder.unparsed("mode", mode.friendlyName());
+                var modeNamePlaceholder = Placeholder.parsed("mode", mode.displayItem().name());
                 sender.sendMessage(MINI_MESSAGE.deserialize(CommonMatchmakerError.QUEUE_ERR_UNKNOWN, modeNamePlaceholder));
             }
             case PARTY_TOO_LARGE -> {
-                var modeNamePlaceholder = Placeholder.unparsed("mode", mode.friendlyName());
+                var modeNamePlaceholder = Placeholder.parsed("mode", mode.displayItem().name());
                 var max = Placeholder.unparsed("max", String.valueOf(mode.partyRestrictions().maxSize()));
                 sender.sendMessage(MINI_MESSAGE.deserialize(CommonMatchmakerError.QUEUE_ERR_PARTY_TOO_LARGE, modeNamePlaceholder, max));
             }
             case INVALID_GAME_MODE -> {
                 LOGGER.error("Invalid gamemode '{}'", mode.friendlyName());
-                var modeNamePlaceholder = Placeholder.unparsed("mode", mode.friendlyName());
+                var modeNamePlaceholder = Placeholder.parsed("mode", mode.displayItem().name());
                 sender.sendMessage(MINI_MESSAGE.deserialize(CommonMatchmakerError.QUEUE_ERR_UNKNOWN, modeNamePlaceholder));
             }
             case GAME_MODE_DISABLED -> {
                 LOGGER.error("Gamemode '{}' is disabled", mode.friendlyName());
-                var modeNamePlaceholder = Placeholder.unparsed("mode", mode.friendlyName());
+                var modeNamePlaceholder = Placeholder.parsed("mode", mode.displayItem().name());
                 sender.sendMessage(MINI_MESSAGE.deserialize(CommonMatchmakerError.QUEUE_ERR_UNKNOWN, modeNamePlaceholder));
             }
         }

@@ -32,7 +32,7 @@ public final class MapSelectorInventory extends Inventory {
     private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
 
     // TODO: Switch messages to new system used in Velocity core
-    private static final String TITLE_FORMAT = "<dark_green><mode> Map Selection</dark_green>";
+    private static final String TITLE_FORMAT = "<mode><reset> map selector";
     private static final String ERR_MAP_NOT_FOUND = "<red>Map <map> not found for <mode></red>";
     private static final Component ERR_UNKNOWN = Component.text("An unknown error occurred", NamedTextColor.RED);
 
@@ -48,7 +48,7 @@ public final class MapSelectorInventory extends Inventory {
      * @param isQueued   if queued, instead of queueing for a map it will modify the current queue's selection.
      */
     public MapSelectorInventory(@NotNull GameModeConfig mode, @NotNull MatchmakerService matchmaker, boolean isQueued) {
-        super(InventoryType.CHEST_3_ROW, MINI_MESSAGE.deserialize(TITLE_FORMAT, Placeholder.unparsed("mode", mode.friendlyName())));
+        super(InventoryType.CHEST_3_ROW, MINI_MESSAGE.deserialize(TITLE_FORMAT, Placeholder.unparsed("mode", mode.displayItem().name())));
 
         this.isQueued = isQueued;
         this.matchmaker = matchmaker;
@@ -141,20 +141,23 @@ public final class MapSelectorInventory extends Inventory {
         }
 
         switch (result) {
-            case SUCCESS -> player.sendMessage(Component.text("You have been queued for " + this.mode.friendlyName(), NamedTextColor.GREEN));
+            case SUCCESS -> player.sendMessage(Component.text()
+                    .append(Component.text("You have been queued for ", NamedTextColor.GREEN))
+                    .append(MiniMessage.miniMessage().deserialize(this.mode.displayItem().name()))
+                    .build());
             case ALREADY_IN_QUEUE -> player.sendMessage(CommonMatchmakerError.QUEUE_ERR_ALREADY_IN_QUEUE);
             case PARTY_TOO_LARGE -> {
-                var modeName = Placeholder.unparsed("mode", this.mode.friendlyName());
+                var modeName = Placeholder.parsed("mode", this.mode.displayItem().name());
                 var maxSize = Placeholder.unparsed("max", String.valueOf(this.mode.partyRestrictions().maxSize()));
                 player.sendMessage(MINI_MESSAGE.deserialize(CommonMatchmakerError.QUEUE_ERR_PARTY_TOO_LARGE, modeName, maxSize));
             }
             case GAME_MODE_DISABLED, INVALID_GAME_MODE -> {
-                var modeName = Placeholder.unparsed("mode", this.mode.friendlyName());
+                var modeName = Placeholder.parsed("mode", this.mode.displayItem().name());
                 player.sendMessage(MINI_MESSAGE.deserialize(CommonMatchmakerError.QUEUE_ERR_UNKNOWN, modeName));
             }
             case INVALID_MAP -> {
                 var mapName = Placeholder.unparsed("map", map.friendlyName());
-                var modeName = Placeholder.unparsed("mode", this.mode.friendlyName());
+                var modeName = Placeholder.parsed("mode", this.mode.displayItem().name());
                 player.sendMessage(MINI_MESSAGE.deserialize(ERR_MAP_NOT_FOUND, mapName, modeName));
             }
             case NO_PERMISSION -> player.sendMessage(Component.text("You do not have permission to queue for " + this.mode.friendlyName(), NamedTextColor.RED));
