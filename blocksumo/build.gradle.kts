@@ -33,6 +33,7 @@ java {
 
 tasks {
     shadowJar {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
         mergeServiceFiles()
 
         manifest {
