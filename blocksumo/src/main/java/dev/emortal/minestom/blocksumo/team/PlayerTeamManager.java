@@ -2,9 +2,10 @@ package dev.emortal.minestom.blocksumo.team;
 
 import dev.emortal.minestom.blocksumo.game.PlayerTags;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.ShadowColor;
 import net.kyori.adventure.text.format.TextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.Player;
 import net.minestom.server.network.packet.server.play.TeamsPacket;
@@ -18,6 +19,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public final class PlayerTeamManager {
 
+    private static final int STARTING_LIVES = 5;
     private final List<Integer> teamColours = new ArrayList<>();
 
     public void allocateTeam(@NotNull Player player) {
@@ -40,30 +42,33 @@ public final class PlayerTeamManager {
                 .updateTeamPacket()
                 .build();
 
-        this.updateTeamLives(minestomTeam, 5, allocatedColor);
+        this.updateTeamLives(minestomTeam, STARTING_LIVES);
 
         player.setTeam(minestomTeam);
     }
 
     public void updateTeamLives(@NotNull Player player, int lives) {
-        TeamColor allocatedColor = player.getTag(PlayerTags.TEAM_COLOR);
-        updateTeamLives(player.getTeam(), lives, allocatedColor);
+//        TeamColor allocatedColor = player.getTag(PlayerTags.TEAM_COLOR);
+        updateTeamLives(player.getTeam(), lives);
     }
 
-    public void updateTeamLives(@NotNull Team team, int lives, TeamColor color) {
-        TextColor livesColor;
-        if (lives == 5) {
-            livesColor = NamedTextColor.GREEN;
-        } else {
-            livesColor = TextColor.lerp((lives - 1) / 4F, NamedTextColor.RED, NamedTextColor.GREEN);
+    public void updateTeamLives(@NotNull Team team, int lives) {
+        String emptyFont = "\uE01D";
+        String fullFont = "\uE01E";
+        int emptyHearts = STARTING_LIVES - lives;
+
+        TextComponent.Builder builder = Component.text()
+                .append(Component.text(" • ", NamedTextColor.GRAY));
+
+        for (int i = 0; i < lives; i++) {
+            builder.append(Component.translatable("space.-1"));
+            builder.append(Component.text(fullFont, NamedTextColor.WHITE).shadowColor(ShadowColor.none()));
         }
-        if (lives > 5) {
-            livesColor = NamedTextColor.LIGHT_PURPLE;
+        for (int i = 0; i < emptyHearts; i++) {
+            builder.append(Component.translatable("space.-1"));
+            builder.append(Component.text(emptyFont, NamedTextColor.WHITE).shadowColor(ShadowColor.none()));
         }
 
-        team.updateSuffix(Component.text()
-                .append(Component.text(" • ", NamedTextColor.GRAY))
-                .append(Component.text(lives, livesColor, TextDecoration.BOLD))
-                .build());
+        team.updateSuffix(builder.build());
     }
 }
