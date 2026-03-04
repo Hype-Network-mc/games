@@ -42,6 +42,7 @@ public final class GraffitiFeature implements LobbyFeature {
         DONATORS.put("TheMode", 5.00);
         DONATORS.put("RayTheDumbass", 5.00);
         DONATORS.put("kibble_wibble", 3.00);
+        DONATORS.put("Libreh", 12.00);
 
 
         this.instance = instance;
