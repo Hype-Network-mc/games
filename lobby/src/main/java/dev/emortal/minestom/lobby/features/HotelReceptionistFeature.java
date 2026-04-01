@@ -16,13 +16,12 @@ import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Player;
 import net.minestom.server.entity.PlayerHand;
 import net.minestom.server.entity.PlayerSkin;
-import net.minestom.server.entity.metadata.avatar.MannequinMeta;
+import net.minestom.server.entity.metadata.animal.tameable.CatVariant;
 import net.minestom.server.entity.metadata.display.ItemDisplayMeta;
 import net.minestom.server.event.player.PlayerEntityInteractEvent;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
-import net.minestom.server.network.player.ResolvableProfile;
 import net.minestom.server.sound.SoundEvent;
 import net.minestom.server.timer.TaskSchedule;
 import org.jetbrains.annotations.NotNull;
@@ -91,14 +90,15 @@ public final class HotelReceptionistFeature implements LobbyFeature {
                             .append(Component.text(pickRandomZakMessage(), NamedTextColor.WHITE))
                             .build()
             );
-            player.playSound(Sound.sound(SoundEvent.ENTITY_VILLAGER_AMBIENT, Sound.Source.MASTER, 0.7f, 1.5f), ZAK_POS);
+            player.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 0.7f, 1.5f), ZAK_POS);
         });
 
-        BetterLivingEntity bomNpc = new BetterLivingEntity(EntityType.MANNEQUIN);
-        bomNpc.editEntityMeta(MannequinMeta.class, meta -> {
-            meta.setProfile(new ResolvableProfile(BOM_SKIN));
-            meta.setCustomNameVisible(true);
-        });
+        BetterLivingEntity bomNpc = new BetterLivingEntity(EntityType.CAT);
+        bomNpc.set(DataComponents.CAT_VARIANT, CatVariant.RED);
+//        bomNpc.editEntityMeta(MannequinMeta.class, meta -> {
+//            meta.setProfile(new ResolvableProfile(BOM_SKIN));
+//            meta.setCustomNameVisible(true);
+//        });
         bomNpc.set(DataComponents.CUSTOM_NAME, Component.text("Bom"));
         bomNpc.setInstance(instance, BOM_POS);
         bomNpc.setItemInHand(PlayerHand.MAIN, BOM_FIREBALL);
@@ -114,7 +114,7 @@ public final class HotelReceptionistFeature implements LobbyFeature {
                                 .append(Component.text(pickRandomBomMessage(), NamedTextColor.WHITE))
                                 .build()
                 );
-                player.playSound(Sound.sound(SoundEvent.ENTITY_VILLAGER_AMBIENT, Sound.Source.MASTER, 0.7f, 1.5f), BOM_POS);
+                player.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 0.7f, 1.5f), BOM_POS);
             }
         });
 

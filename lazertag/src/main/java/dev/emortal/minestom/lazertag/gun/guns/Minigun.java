@@ -25,7 +25,7 @@ public final class Minigun extends Gun {
             0,
             1,
 
-            Sound.sound(SoundEvent.BLOCK_BEACON_DEACTIVATE, Sound.Source.PLAYER, 2f, 2f)
+            Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.PLAYER, 2f, 2f)
     );
 
     public Minigun(@NotNull LazerTagGame game) {

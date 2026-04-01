@@ -5,7 +5,6 @@ import dev.emortal.api.service.party.JoinPartyResult;
 import dev.emortal.api.service.party.PartyService;
 import dev.emortal.api.utils.ProtoTimestampConverter;
 import dev.emortal.minestom.lobby.util.DurationFormatter;
-import dev.emortal.minestom.lobby.util.ProtoConverter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.coordinate.Point;
@@ -15,14 +14,12 @@ import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Player;
 import net.minestom.server.entity.PlayerHand;
-import net.minestom.server.entity.metadata.avatar.MannequinMeta;
 import net.minestom.server.entity.metadata.display.AbstractDisplayMeta;
 import net.minestom.server.entity.metadata.display.TextDisplayMeta;
 import net.minestom.server.event.entity.EntityAttackEvent;
 import net.minestom.server.event.player.PlayerEntityInteractEvent;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.inventory.click.ClickType;
-import net.minestom.server.network.player.ResolvableProfile;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,15 +42,11 @@ public final class EventNPC extends Entity {
     private @NotNull EventData event;
 
     public EventNPC(@NotNull PartyService partyService, @NotNull EventData event) {
-        super(EntityType.MANNEQUIN);
+        super(EntityType.CAT);
 
         this.partyService = partyService;
         this.event = event;
         this.setEvent(event);
-
-        editEntityMeta(MannequinMeta.class, meta -> {
-            meta.setProfile(new ResolvableProfile(ProtoConverter.convert(event.getOwnerSkin())));
-        });
 
         this.eventNameTag.editEntityMeta(TextDisplayMeta.class, meta -> {
             meta.setBillboardRenderConstraints(AbstractDisplayMeta.BillboardConstraints.VERTICAL);

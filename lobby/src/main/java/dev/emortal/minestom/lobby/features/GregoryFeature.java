@@ -2,9 +2,10 @@ package dev.emortal.minestom.lobby.features;
 
 import dev.emortal.minestom.lobby.util.entity.BetterEntity;
 import net.kyori.adventure.sound.Sound;
+import net.minestom.server.component.DataComponents;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.EntityType;
-import net.minestom.server.entity.metadata.animal.SnifferMeta;
+import net.minestom.server.entity.metadata.animal.tameable.CatVariant;
 import net.minestom.server.event.player.PlayerEntityInteractEvent;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.sound.SoundEvent;
@@ -14,7 +15,8 @@ public final class GregoryFeature implements LobbyFeature {
 
     @Override
     public void register(@NotNull Instance instance) {
-        BetterEntity gregory = new BetterEntity(EntityType.SNIFFER);
+        BetterEntity gregory = new BetterEntity(EntityType.CAT);
+        gregory.set(DataComponents.CAT_VARIANT, CatVariant.RED);
         gregory.setPhysics(false);
         gregory.setTicking(false);
 
@@ -22,8 +24,8 @@ public final class GregoryFeature implements LobbyFeature {
 
         instance.eventNode().addListener(PlayerEntityInteractEvent.class, e -> {
             if (e.getTarget() != gregory) return;
-            ((SnifferMeta)e.getTarget().getEntityMeta()).setState(SnifferMeta.State.SNIFFING);
-            e.getPlayer().playSound(Sound.sound(SoundEvent.ENTITY_SNIFFER_SNIFFING, Sound.Source.MASTER, 1f, 1f), e.getTarget().getPosition());
+//            ((SnifferMeta)e.getTarget().getEntityMeta()).setState(SnifferMeta.State.SNIFFING);
+            e.getPlayer().playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 1f, 1f), e.getTarget().getPosition());
         });
     }
 }

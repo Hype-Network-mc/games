@@ -76,7 +76,7 @@ public final class LightsOutFeature implements LobbyFeature {
 
         batch.apply(event.getInstance(), null);
 
-        event.getPlayer().playSound(Sound.sound(SoundEvent.BLOCK_WOODEN_BUTTON_CLICK_ON, Sound.Source.MASTER, 1f, 1.5f), Sound.Emitter.self());
+        event.getPlayer().playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 1f, 1.5f), Sound.Emitter.self());
     }
 
     private void handleResetButtonClick(@NotNull PlayerBlockInteractEvent event) {

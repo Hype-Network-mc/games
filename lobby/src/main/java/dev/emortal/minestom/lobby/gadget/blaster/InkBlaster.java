@@ -3,11 +3,11 @@ package dev.emortal.minestom.lobby.gadget.blaster;
 import dev.emortal.minestom.lobby.LobbyTags;
 import dev.emortal.minestom.lobby.gadget.BlockChangingGadget;
 import dev.emortal.minestom.lobby.util.SphereUtil;
-import dev.emortal.minestom.lobby.util.WorldBlock;
 import dev.emortal.minestom.lobby.util.entity.BetterEntityProjectile;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.minestom.server.collision.Aerodynamics;
 import net.minestom.server.component.DataComponents;
 import net.minestom.server.coordinate.Point;
 import net.minestom.server.coordinate.Vec;
@@ -15,19 +15,17 @@ import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.EntityProjectile;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Player;
-import net.minestom.server.entity.metadata.item.SnowballMeta;
+import net.minestom.server.entity.metadata.animal.tameable.CatVariant;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
-import net.minestom.server.network.packet.server.play.BlockChangePacket;
 import net.minestom.server.sound.SoundEvent;
 import net.minestom.server.tag.Tag;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
@@ -41,8 +39,8 @@ public final class InkBlaster extends BlockChangingGadget {
     private static final Block[] BLOCK_COLORS = Arrays.stream(InkColor.values()).map(color -> blockFromMaterial(color.getDye())).collect(Collectors.toSet()).toArray(new Block[0]);
     private static final Tag<Integer> MARKER_TAG = Tag.Integer("ink_blaster");
 
-    private static final double SPREAD = 0.1;
-    private static final double BULLETS = 4;
+    private static final double SPREAD = 0.4;
+    private static final double BULLETS = 10;
 
     public InkBlaster() {
         super("Ink Blaster", ITEM, "ink_blaster", true);
@@ -50,7 +48,7 @@ public final class InkBlaster extends BlockChangingGadget {
 
     @Override
     protected void onUse(@NotNull Player user, @NotNull Instance instance) {
-        user.playSound(Sound.sound(SoundEvent.ENTITY_GHAST_SHOOT, Sound.Source.MASTER, 0.5F, 2F), Sound.Emitter.self());
+        user.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 0.5F, 2F), Sound.Emitter.self());
 
         for (int i = 0; i < BULLETS; i++) {
             Vec eyeDirection = calculateEyeDirection(user);
@@ -70,15 +68,14 @@ public final class InkBlaster extends BlockChangingGadget {
     }
 
     private void spawnInkBall(@NotNull Instance instance, @NotNull Player player, @NotNull Vec velocity) {
-        BetterEntityProjectile inkBall = new BetterEntityProjectile(player, EntityType.SNOWBALL);
+        BetterEntityProjectile inkBall = new BetterEntityProjectile(player, EntityType.CAT);
 
-        SnowballMeta meta = (SnowballMeta) inkBall.getEntityMeta();
-        int colorIndex = ThreadLocalRandom.current().nextInt(INK_COLORS.length);
-        meta.setItem(INK_COLORS[colorIndex]);
+        inkBall.set(DataComponents.CAT_VARIANT, CatVariant.RED);
+        inkBall.setAerodynamics(new Aerodynamics(0.0, 1.0, 1.0));
 
         inkBall.setVelocity(velocity);
         inkBall.setTag(LobbyTags.LOBBABLE, true);
-        inkBall.setTag(MARKER_TAG, colorIndex);
+//        inkBall.setTag(MARKER_TAG, colorIndex);
 
         inkBall.setInstance(instance, player.getPosition().add(0, player.getEyeHeight(), 0));
         inkBall.scheduleRemove(10, ChronoUnit.SECONDS);
@@ -86,26 +83,26 @@ public final class InkBlaster extends BlockChangingGadget {
 
     @Override
     protected void onCollide(@NotNull Entity entity, @NotNull Instance instance) {
-        Integer markerTag = entity.getTag(MARKER_TAG);
-        if (markerTag == null) return;
-
-        Block block = BLOCK_COLORS[markerTag];
-
-        List<WorldBlock> nearbyBlocks = SphereUtil.getNearbyBlocks(entity.getPosition(), BLOCKS_IN_SPHERE, instance,
-                b -> b.isSolid() && !b.compare(Block.OAK_WALL_SIGN));
-
-        for (WorldBlock nearbyBlock : nearbyBlocks) {
-            BlockChangePacket packet = new BlockChangePacket(nearbyBlock.position(), block);
-            instance.sendGroupedPacket(packet);
-        }
-
+//        Integer markerTag = entity.getTag(MARKER_TAG);
+//        if (markerTag == null) return;
+//
+//        Block block = BLOCK_COLORS[markerTag];
+//
+//        List<WorldBlock> nearbyBlocks = SphereUtil.getNearbyBlocks(entity.getPosition(), BLOCKS_IN_SPHERE, instance,
+//                b -> b.isSolid() && !b.compare(Block.OAK_WALL_SIGN));
+//
+//        for (WorldBlock nearbyBlock : nearbyBlocks) {
+//            BlockChangePacket packet = new BlockChangePacket(nearbyBlock.position(), block);
+//            instance.sendGroupedPacket(packet);
+//        }
+//
         Player shooter = (Player) ((EntityProjectile) entity).getShooter();
-        shooter.playSound(Sound.sound(SoundEvent.ENTITY_DONKEY_CHEST, Sound.Source.MASTER, 4F, 2F), entity.getPosition());
-
-        super.regenerateBlocks(instance, nearbyBlocks, b -> {
-            BlockChangePacket packet = new BlockChangePacket(b.position(), b.block());
-            instance.sendGroupedPacket(packet);
-        });
+        shooter.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 4F, 2F), entity.getPosition());
+//
+//        super.regenerateBlocks(instance, nearbyBlocks, b -> {
+//            BlockChangePacket packet = new BlockChangePacket(b.position(), b.block());
+//            instance.sendGroupedPacket(packet);
+//        });
 
         entity.remove();
     }

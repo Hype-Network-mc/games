@@ -37,7 +37,7 @@ public final class ClickySignFeature implements LobbyFeature {
         instance.eventNode().addListener(PlayerBlockInteractEvent.class, event -> {
             if (!event.getBlockPosition().sameBlock(SIGN_POS)) return;
 
-            event.getPlayer().playSound(Sound.sound(SoundEvent.BLOCK_NOTE_BLOCK_HAT, Sound.Source.BLOCK, 0.75f, 2f), Sound.Emitter.self());
+            event.getPlayer().playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.BLOCK, 0.75f, 2f), Sound.Emitter.self());
             updateSign(instance, ++count);
         });
 

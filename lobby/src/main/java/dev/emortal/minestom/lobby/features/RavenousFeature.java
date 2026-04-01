@@ -1,10 +1,12 @@
 package dev.emortal.minestom.lobby.features;
 
 import dev.emortal.minestom.lobby.util.entity.BetterEntity;
+import net.minestom.server.component.DataComponents;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.coordinate.Vec;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.metadata.animal.tameable.CatMeta;
+import net.minestom.server.entity.metadata.animal.tameable.CatVariant;
 import net.minestom.server.entity.metadata.display.ItemDisplayMeta;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.block.Block;
@@ -20,6 +22,7 @@ public final class RavenousFeature implements LobbyFeature {
 
         BetterEntity cat = new BetterEntity(EntityType.CAT);
         CatMeta meta = (CatMeta) cat.getEntityMeta();
+        cat.set(DataComponents.CAT_VARIANT, CatVariant.RED);
         cat.setPhysics(false);
         cat.setTicking(false);
         meta.setBaby(true);

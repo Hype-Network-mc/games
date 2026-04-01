@@ -92,7 +92,7 @@ public final class PlayerBlockHandler {
         // Play block place sound to other players
         for (Player plr : event.getInstance().getPlayers()) {
             if (plr == player) continue; // Sound is already played client side
-            plr.playSound(Sound.sound(SoundEvent.BLOCK_WOOL_PLACE, Sound.Source.MASTER, 1f, 0.8f), event.getBlockPosition().add(0.5));
+            plr.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 1f, 0.8f), event.getBlockPosition().add(0.5));
         }
     }
 

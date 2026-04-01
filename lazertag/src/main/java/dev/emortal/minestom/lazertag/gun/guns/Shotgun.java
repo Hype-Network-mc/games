@@ -27,7 +27,7 @@ public final class Shotgun extends Gun {
             0.13,
             20,
 
-            Sound.sound(SoundEvent.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, Sound.Source.PLAYER, 1.5f, 1f)
+            Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.PLAYER, 1.5f, 1f)
     );
 
     public Shotgun(@NotNull LazerTagGame game) {

@@ -128,7 +128,7 @@ public final class InteractionManager {
             if ((this.board.getFlag(x, z) != Block.BLACK_CARPET)
                     && !this.board.getSolvedChunks().contains(new Vec2(chunk.getChunkX(), chunk.getChunkZ()))) {
                 // But only if it is not from a lost life or a completed chunk
-                player.playSound(Sound.sound(SoundEvent.ENTITY_ITEM_PICKUP, Sound.Source.MASTER, 0.6F, 1.8F));
+                player.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 0.6F, 1.8F));
                 this.actionBar.decrementFlags();
 
                 this.board.removeFlag(new Flag(new Vec2(x, z), player.getTag(PlayerTags.COLOR)), chunk);
@@ -139,7 +139,7 @@ public final class InteractionManager {
 
         if (this.isInvalidFlag(x, y, z)) return;
 
-        player.playSound(Sound.sound(SoundEvent.ENTITY_ENDER_DRAGON_FLAP, Sound.Source.MASTER, 0.6F, 2F));
+        player.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 0.6F, 2F));
         this.actionBar.incrementFlags();
 
         this.board.addFlagIfMissing(new Flag(new Vec2(x, z), player.getTag(PlayerTags.COLOR)), chunk);
@@ -207,12 +207,12 @@ public final class InteractionManager {
     }
 
     private void playRevealSound(@NotNull Audience audience) {
-        audience.playSound(Sound.sound(SoundEvent.ENTITY_ITEM_PICKUP, Sound.Source.MASTER, 0.5F, 0.7F),
+        audience.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 0.5F, 2F),
                 Sound.Emitter.self());
     }
 
     private void playSolvedChunkSound(@NotNull Audience audience) {
-        audience.playSound(Sound.sound(SoundEvent.ENTITY_PLAYER_LEVELUP, Sound.Source.MASTER, 0.5F, 1F),
+        audience.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 0.5F, 1F),
                 Sound.Emitter.self());
     }
 

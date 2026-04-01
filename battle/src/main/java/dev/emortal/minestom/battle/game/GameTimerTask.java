@@ -88,7 +88,7 @@ final class GameTimerTask implements Supplier<TaskSchedule> {
     }
 
     private void startGlowing() {
-        this.game.playSound(Sound.sound(SoundEvent.BLOCK_NOTE_BLOCK_HAT, Sound.Source.MASTER, 1f, 1.5f), Sound.Emitter.self());
+        this.game.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 1f, 1.5f), Sound.Emitter.self());
         this.game.showTitle(Title.title(
                 Component.empty(),
                 Component.text("Everyone is now glowing!", NamedTextColor.GRAY),

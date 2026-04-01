@@ -223,7 +223,7 @@ public final class PowerUpManager {
     }
 
     private void playGivenSound(@NotNull Audience audience) {
-        audience.playSound(Sound.sound(SoundEvent.ENTITY_ITEM_PICKUP, Sound.Source.PLAYER, 1, 1));
+        audience.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.PLAYER, 1, 1));
     }
 
     private void notifySpawned(@NotNull ItemStack powerUp) {

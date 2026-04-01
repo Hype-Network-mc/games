@@ -85,11 +85,11 @@ public final class SecretLeverFeature implements LobbyFeature {
 
             player.sendPacket(new BlockChangePacket(ABSSecretFeature.DOOR_TOP_POS, Block.IRON_DOOR.withProperties(Map.of("powered", "true", "half", "upper"))));
             player.sendPacket(new BlockChangePacket(ABSSecretFeature.DOOR_BOTTOM_POS, Block.IRON_DOOR.withProperties(Map.of("powered", "true", "half", "lower"))));
-            player.playSound(Sound.sound(SoundEvent.BLOCK_IRON_DOOR_OPEN, Sound.Source.MASTER, 16f, 1f), ABSSecretFeature.DOOR_TOP_POS);
+            player.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 16f, 1f), ABSSecretFeature.DOOR_TOP_POS);
             player.setTag(ABSSecretFeature.DOOR_UNLOCKED_TAG, true);
         }
 
-        player.playSound(Sound.sound(SoundEvent.BLOCK_PISTON_EXTEND, Sound.Source.MASTER, 0.6f, 0.6f), event.getBlockPosition().add(0.5));
+        player.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 0.6f, 0.6f), event.getBlockPosition().add(0.5));
         player.playSound(Sound.sound(SoundEvent.BLOCK_LEVER_CLICK, Sound.Source.MASTER, 1f, 1.2f), event.getBlockPosition().add(0.5));
         player.playSound(Sound.sound(SoundEvent.ENTITY_EXPERIENCE_ORB_PICKUP, Sound.Source.MASTER, 1.3f, 2f), event.getBlockPosition().add(0.5));
 

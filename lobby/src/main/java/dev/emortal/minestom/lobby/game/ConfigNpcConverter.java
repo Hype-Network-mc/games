@@ -8,14 +8,14 @@ import dev.emortal.minestom.lobby.util.npc.NpcHandler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.minestom.server.component.DataComponents;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.*;
-import net.minestom.server.entity.metadata.avatar.MannequinMeta;
+import net.minestom.server.entity.metadata.animal.tameable.CatVariant;
 import net.minestom.server.event.entity.EntityAttackEvent;
 import net.minestom.server.event.player.PlayerEntityInteractEvent;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.inventory.click.ClickType;
-import net.minestom.server.network.player.ResolvableProfile;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -29,11 +29,12 @@ final class ConfigNpcConverter {
         ConfigSkin configSkin = npc.skin();
         PlayerSkin skin = new PlayerSkin(configSkin.texture(), configSkin.signature());
 
-        BetterEntity emortalNpc = new BetterEntity(EntityType.MANNEQUIN);
+        BetterEntity emortalNpc = new BetterEntity(EntityType.CAT);
+        emortalNpc.set(DataComponents.CAT_VARIANT, CatVariant.RED);
         emortalNpc.setTicking(false);
-        emortalNpc.editEntityMeta(MannequinMeta.class, meta -> {
-            meta.setProfile(new ResolvableProfile(skin));
-        });
+//        emortalNpc.editEntityMeta(MannequinMeta.class, meta -> {
+//            meta.setProfile(new ResolvableProfile(skin));
+//        });
 
 //        EventNode<@NotNull Event> npcEventNode = EventNode.all("npc-interact." + emortalNpc.getEntityId());
 //        MinecraftServer.getGlobalEventHandler().addChild(npcEventNode);
