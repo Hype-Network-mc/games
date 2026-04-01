@@ -69,16 +69,16 @@ public final class RandomEventHandler {
     }
 
     private void setTimeToDusk() {
-        this.instance.setTimeRate(400);
+        this.instance.defaultClock().rate(400);
         this.instance.setTime(8000);
     }
 
     private void resetTimeAdvance() {
-        this.instance.setTimeRate(0);
+        this.instance.defaultClock().pause();
     }
 
     private void setTimeToNight() {
         this.instance.setTime(16000);
-        this.instance.setTimeRate(80);
+        this.instance.defaultClock().rate(80);
     }
 }

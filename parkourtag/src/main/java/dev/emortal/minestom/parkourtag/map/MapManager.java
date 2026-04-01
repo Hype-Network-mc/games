@@ -76,8 +76,7 @@ public final class MapManager {
                 byte[] polarBytes = Files.readAllBytes(polarPath);
 
                 InstanceContainer instance = MinecraftServer.getInstanceManager().createInstanceContainer(dimension);
-                instance.setTimeRate(0);
-                instance.setTimeSynchronizationTicks(0);
+                instance.defaultClock().pause();
                 instance.setChunkLoader(ChunkLoader.noop());
 
                 PolarLoader.streamLoad(instance, Channels.newChannel(new ByteArrayInputStream(polarBytes)), polarBytes.length, new PolarChainFix(), null, true).join();
@@ -136,8 +135,7 @@ public final class MapManager {
             }
 
             shared.setTag(MAP_ID_TAG, mapId);
-            shared.setTimeRate(0);
-            shared.setTimeSynchronizationTicks(0);
+            shared.defaultClock().pause();
 
             return new LoadedMap(shared, this.mapData(), physics);
         }

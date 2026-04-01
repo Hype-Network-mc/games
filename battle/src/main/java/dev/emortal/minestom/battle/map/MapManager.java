@@ -71,8 +71,7 @@ public final class MapManager {
 
                 InstanceContainer instance = MinecraftServer.getInstanceManager().createInstanceContainer(dimensionKey);
                 instance.setTime(0);
-                instance.setTimeRate(0);
-                instance.setTimeSynchronizationTicks(0);
+                instance.defaultClock().pause();
 
                 PolarLoader.streamLoad(instance, Channels.newChannel(new ByteArrayInputStream(polarBytes)), polarBytes.length, null, null, true).join();
 
@@ -120,8 +119,7 @@ public final class MapManager {
 
             shared.setTag(MAP_ID_TAG, mapId);
             shared.setTime(0);
-            shared.setTimeRate(0);
-            shared.setTimeSynchronizationTicks(0);
+            shared.defaultClock().pause();
 
             return new LoadedMap(shared, this.data());
         }

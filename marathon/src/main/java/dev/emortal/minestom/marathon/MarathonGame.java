@@ -100,9 +100,7 @@ public final class MarathonGame {
         this.animation = playerData.hasAnimation() ? BlockAnimation.valueOf(playerData.getAnimation()) : BlockAnimation.POPOUT;
 
         this.instance = MinecraftServer.getInstanceManager().createInstanceContainer(dimension);
-        this.instance.setTimeRate(0);
         this.instance.setTime(this.time.getTime());
-        this.instance.setTimeSynchronizationTicks(0);
         this.instance.eventNode().addListener(PlayerChunkUnloadEvent.class, event -> {
             Chunk chunk = this.instance.getChunk(event.getChunkX(), event.getChunkZ());
             if (chunk == null) return;

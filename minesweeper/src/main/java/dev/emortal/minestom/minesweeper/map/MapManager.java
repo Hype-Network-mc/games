@@ -3,6 +3,7 @@ package dev.emortal.minestom.minesweeper.map;
 import dev.emortal.minestom.minesweeper.board.Board;
 import dev.emortal.minestom.minesweeper.board.BoardReader;
 import net.kyori.adventure.key.Key;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.ShadowColor;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.color.Color;
@@ -30,6 +31,7 @@ public final class MapManager {
                 .setAttribute(EnvironmentAttribute.FOG_COLOR, new Color(0xc0d8ff))
                 .setAttribute(EnvironmentAttribute.SKY_COLOR, new Color(0x78a7ff))
                 .ambientLight(1f)
+                .setAttribute(EnvironmentAttribute.AMBIENT_LIGHT_COLOR, NamedTextColor.WHITE)
                 .build();
 
         MinecraftServer.getDimensionTypeRegistry().register("emortalmc:fullbright", dimensionTypeFB);

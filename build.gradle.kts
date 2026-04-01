@@ -5,17 +5,22 @@ plugins {
 group = "dev.emortal"
 version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
-}
-
-
 allprojects {
     apply(plugin = "java")
 
+    repositories {
+        maven(url = "https://central.sonatype.com/repository/maven-snapshots/") {
+            content { // This filtering is optional, but recommended
+                includeModule("net.minestom", "minestom")
+                includeModule("net.minestom", "testing")
+            }
+        }
+        mavenCentral()
+    }
+
     dependencies {
         // Minestom
-        implementation("net.minestom:minestom:2026.01.01-1.21.11")
+        implementation("net.minestom:minestom:26_1-SNAPSHOT")
         implementation("net.kyori:adventure-text-minimessage:4.25.0")
 
         implementation("org.apache.kafka:kafka-clients:4.1.1")

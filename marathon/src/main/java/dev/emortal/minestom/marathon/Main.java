@@ -10,6 +10,7 @@ import dev.emortal.minestom.gamesdk.util.GamePlayerDataRepository;
 import dev.emortal.minestom.marathon.options.BlockPalette;
 import dev.emortal.minestom.marathon.options.Time;
 import net.kyori.adventure.key.Key;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.ShadowColor;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.color.Color;
@@ -39,7 +40,9 @@ public final class Main {
                     .setAttribute(EnvironmentAttribute.FOG_COLOR, new Color(0xc0d8ff))
                     .setAttribute(EnvironmentAttribute.SKY_COLOR, new Color(0x78a7ff))
                     .setAttribute(EnvironmentAttribute.CLOUD_HEIGHT, 110f)
-                    .ambientLight(1F)
+                    .ambientLight(1f)
+                    .setAttribute(EnvironmentAttribute.AMBIENT_LIGHT_COLOR, NamedTextColor.WHITE)
+                    .defaultClock(overworld.defaultClock())
                     .build();
             RegistryKey<DimensionType> dimension = MinecraftServer.getDimensionTypeRegistry().register(Key.key("fullbright"), dimensionType);
 
