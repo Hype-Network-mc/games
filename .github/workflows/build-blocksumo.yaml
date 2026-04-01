@@ -8,6 +8,7 @@ on:
       - 'core/**'
       - '.github/workflows/build-blocksumo.yaml'
       - 'blocksumo/**'
+      - 'build.gradle.kts'
 
 jobs:
   build:

@@ -8,6 +8,7 @@ on:
       - 'core/**'
       - '.github/workflows/build-marathon.yaml'
       - 'marathon/**'
+      - 'build.gradle.kts'
 
 jobs:
   build:

@@ -8,6 +8,7 @@ on:
       - 'core/**'
       - '.github/workflows/build-battle.yaml'
       - 'battle/**'
+      - 'build.gradle.kts'
 
 jobs:
   build:
