@@ -32,6 +32,7 @@ public final class MapManager {
                 .setAttribute(EnvironmentAttribute.SKY_COLOR, new Color(0x78a7ff))
                 .ambientLight(1f)
                 .setAttribute(EnvironmentAttribute.AMBIENT_LIGHT_COLOR, NamedTextColor.WHITE)
+                .defaultClock(overworld.defaultClock())
                 .build();
 
         MinecraftServer.getDimensionTypeRegistry().register("emortalmc:fullbright", dimensionTypeFB);

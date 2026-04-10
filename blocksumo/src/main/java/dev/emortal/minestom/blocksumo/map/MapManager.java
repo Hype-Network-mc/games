@@ -57,6 +57,8 @@ public final class MapManager {
                 .setAttribute(EnvironmentAttribute.FOG_COLOR, new Color(0xc0d8ff))
                 .setAttribute(EnvironmentAttribute.SKY_COLOR, new Color(0x78a7ff))
                 .setAttribute(EnvironmentAttribute.CLOUD_HEIGHT, 110f)
+                .setAttribute(EnvironmentAttribute.AMBIENT_LIGHT_COLOR, NamedTextColor.WHITE)
+                .defaultClock(overworld.defaultClock())
                 .build();
         DimensionType dimensionTypeFB = DimensionType.builder()
                 .timelines(overworld.timelines())
@@ -65,6 +67,7 @@ public final class MapManager {
                 .setAttribute(EnvironmentAttribute.SKY_COLOR, new Color(0x78a7ff))
                 .setAttribute(EnvironmentAttribute.CLOUD_HEIGHT, 110f)
                 .setAttribute(EnvironmentAttribute.AMBIENT_LIGHT_COLOR, NamedTextColor.WHITE)
+                .defaultClock(overworld.defaultClock())
                 .ambientLight(1f)
                 .build();
 

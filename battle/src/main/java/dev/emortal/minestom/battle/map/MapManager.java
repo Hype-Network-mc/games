@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import net.hollowcube.polar.PolarLoader;
 import net.kyori.adventure.key.Key;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.ShadowColor;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.color.Color;
@@ -53,6 +54,8 @@ public final class MapManager {
                 .setAttribute(EnvironmentAttribute.FOG_COLOR, new Color(0xc0d8ff))
                 .setAttribute(EnvironmentAttribute.SKY_COLOR, new Color(0x78a7ff))
                 .setAttribute(EnvironmentAttribute.CLOUD_HEIGHT, 110f)
+                .setAttribute(EnvironmentAttribute.AMBIENT_LIGHT_COLOR, NamedTextColor.WHITE)
+                .defaultClock(overworld.defaultClock())
                 .build();
 
         var dimensionKey = MinecraftServer.getDimensionTypeRegistry().register(Key.key("emortalmc:battle"), dimensionType);
