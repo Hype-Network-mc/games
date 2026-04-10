@@ -1,14 +1,14 @@
 package dev.emortal.minestom.lobby.features;
 
 import dev.emortal.minestom.lobby.util.entity.BetterEntity;
-import net.minestom.server.component.DataComponents;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.coordinate.Vec;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.PlayerSkin;
-import net.minestom.server.entity.metadata.animal.tameable.CatVariant;
+import net.minestom.server.entity.metadata.avatar.MannequinMeta;
 import net.minestom.server.entity.metadata.display.TextDisplayMeta;
 import net.minestom.server.instance.Instance;
+import net.minestom.server.network.player.ResolvableProfile;
 import org.jetbrains.annotations.NotNull;
 
 public final class EmortalRoomFeature implements LobbyFeature {
@@ -21,12 +21,11 @@ public final class EmortalRoomFeature implements LobbyFeature {
 
     @Override
     public void register(@NotNull Instance instance) {
-        BetterEntity emortalNpc = new BetterEntity(EntityType.CAT);
-        emortalNpc.set(DataComponents.CAT_VARIANT, CatVariant.RED);
+        BetterEntity emortalNpc = new BetterEntity(EntityType.MANNEQUIN);
         emortalNpc.setTicking(false);
-//        emortalNpc.editEntityMeta(MannequinMeta.class, meta -> {
-//            meta.setProfile(new ResolvableProfile(EMORTAL_SKIN));
-//        });
+        emortalNpc.editEntityMeta(MannequinMeta.class, meta -> {
+            meta.setProfile(new ResolvableProfile(EMORTAL_SKIN));
+        });
         emortalNpc.setInstance(instance, EMORTAL_POS);
 
         BetterEntity seatEntity = new BetterEntity(EntityType.TEXT_DISPLAY);

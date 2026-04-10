@@ -245,7 +245,7 @@ public final class MarathonGame {
                 .append(Component.text(" | ", NamedTextColor.DARK_GRAY))
                 .append(Component.text(formattedTime, NamedTextColor.GRAY))
                 .append(Component.text(" | ", NamedTextColor.DARK_GRAY))
-                .append(Component.text(scorePerSecond + " meow/s", NamedTextColor.GRAY))
+                .append(Component.text(scorePerSecond + "bps", NamedTextColor.GRAY))
                 .build();
 
         this.player.sendActionBar(message);
@@ -330,7 +330,7 @@ public final class MarathonGame {
 
     private void playSound(int combo) {
         float pitch = 0.9f + (combo - 1) * 0.05f;
-        Sound comboSound = Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 1f, pitch);
+        Sound comboSound = Sound.sound(SoundEvent.BLOCK_NOTE_BLOCK_BASS, Sound.Source.MASTER, 1f, pitch);
         this.player.playSound(comboSound, Sound.Emitter.self());
     }
 
@@ -387,7 +387,7 @@ public final class MarathonGame {
 
     private void playClickSound() {
         this.player.playSound(Sound.sound(
-                SoundEvent.ENTITY_CAT_AMBIENT,
+                SoundEvent.UI_BUTTON_CLICK,
                 Sound.Source.MASTER,
                 1.0F,
                 1.0F));

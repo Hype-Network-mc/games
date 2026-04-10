@@ -38,7 +38,7 @@ public final class BeeBlaster extends Gun {
             0,
             1,
 
-            Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.PLAYER, 1.3f, 1.1f)
+            Sound.sound(SoundEvent.ENTITY_BEE_HURT, Sound.Source.PLAYER, 1.3f, 1.1f)
     );
 
     public BeeBlaster(@NotNull LazerTagGame game) {

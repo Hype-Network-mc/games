@@ -104,7 +104,7 @@ public final class HotelLiftFeature implements LobbyFeature {
     }
 
     private void playLiftCallSound(@NotNull Player player) {
-        player.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 1f, 1f), new Pos(12, 65, 37));
+        player.playSound(Sound.sound(SoundEvent.BLOCK_BELL_USE, Sound.Source.MASTER, 1f, 1f), new Pos(12, 65, 37));
     }
 
     private @NotNull EntityMetaDataPacket createDoorMetaPacket(int doorEntityId, double translationX) {

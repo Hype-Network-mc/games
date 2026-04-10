@@ -43,7 +43,7 @@ public final class Fireball extends BlockChangingGadget {
 
     @Override
     protected void onUse(@NotNull Player user, @NotNull Instance instance) {
-        user.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 0.7F, 1.2F), Sound.Emitter.self());
+        user.playSound(Sound.sound(SoundEvent.ENTITY_GHAST_SHOOT, Sound.Source.MASTER, 0.7F, 1.2F), Sound.Emitter.self());
 
         // Shoot in the direction the user is facing with a speed of 38
         Vec velocity = user.getPosition().direction().mul(38.0);
@@ -51,7 +51,7 @@ public final class Fireball extends BlockChangingGadget {
     }
 
     private void shootFireball(@NotNull Player shooter, @NotNull Instance instance, @NotNull Vec direction) {
-        BetterEntityProjectile fireball = new BetterEntityProjectile(shooter, EntityType.CAT);
+        BetterEntityProjectile fireball = new BetterEntityProjectile(shooter, EntityType.FIREBALL);
 
         fireball.setNoGravity(true);
         fireball.setVelocity(direction);
@@ -64,7 +64,7 @@ public final class Fireball extends BlockChangingGadget {
 
     @Override
     protected void onCollide(@NotNull Entity entity, @NotNull Instance instance) {
-        if (entity.getEntityType() != EntityType.CAT) return;
+        if (entity.getEntityType() != EntityType.FIREBALL) return;
 
         Point pos = entity.getPosition();
         List<WorldBlock> blocks = SphereUtil.getNearbyBlocks(pos, BLOCKS_IN_SPHERE, instance, block -> !block.isAir());
@@ -75,7 +75,7 @@ public final class Fireball extends BlockChangingGadget {
 
         Player shooter = (Player) ((EntityProjectile) entity).getShooter();
         if (shooter == null) return;
-        shooter.sendPacket(new ExplosionPacket(pos, 2f, 0, null, Particle.EXPLOSION_EMITTER, SoundEvent.ENTITY_CAT_AMBIENT, WeightedList.of()));
+        shooter.sendPacket(new ExplosionPacket(pos, 2f, 0, null, Particle.EXPLOSION_EMITTER, SoundEvent.ENTITY_GENERIC_EXPLODE, WeightedList.of()));
     }
 
     private void explodeBlocks(@NotNull Instance instance, @NotNull List<WorldBlock> blocks) {

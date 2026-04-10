@@ -35,7 +35,7 @@ public final class BeeMinigun extends Gun {
             0,
             1,
 
-            Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.PLAYER, 1f, 2f)
+            Sound.sound(SoundEvent.ENTITY_BEE_HURT, Sound.Source.PLAYER, 1f, 2f)
     );
 
     public BeeMinigun(@NotNull LazerTagGame game) {
@@ -79,7 +79,7 @@ public final class BeeMinigun extends Gun {
         }
 
         private void collide(@Nullable Player collidedPlayer) {
-            this.getViewersAsAudience().playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 1f, 2f));
+            this.getViewersAsAudience().playSound(Sound.sound(SoundEvent.ENTITY_DONKEY_CHEST, Sound.Source.MASTER, 1f, 2f));
 
             this.remove();
             if (collidedPlayer == null) return;

@@ -120,7 +120,7 @@ public final class BlockLobber extends Gadget {
     }
 
     private void playLobSound(@NotNull Instance instance, @NotNull Point pos) {
-        instance.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 0.6F, 2F), pos);
+        instance.playSound(Sound.sound(SoundEvent.ENTITY_GHAST_SHOOT, Sound.Source.MASTER, 0.6F, 2F), pos);
     }
 
     private @Nullable Player getRandomTarget(@NotNull Instance instance, @NotNull Player player, @NotNull Vec lookDirection) {

@@ -100,11 +100,11 @@ public final class ChestUpdateHandler {
     }
 
     private void playChestOpenSound(@NotNull Point pos) {
-        this.game.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.BLOCK, 1f, 1f), pos.x(), pos.y(), pos.z());
+        this.game.playSound(Sound.sound(SoundEvent.BLOCK_CHEST_OPEN, Sound.Source.BLOCK, 1f, 1f), pos.x(), pos.y(), pos.z());
     }
 
     private void playChestCloseSound(@NotNull Point pos) {
-        this.game.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.BLOCK, 1f, 1f), pos.x(), pos.y(), pos.z());
+        this.game.playSound(Sound.sound(SoundEvent.BLOCK_CHEST_CLOSE, Sound.Source.BLOCK, 1f, 1f), pos.x(), pos.y(), pos.z());
     }
 
     private void registerBackgroundTasks() {

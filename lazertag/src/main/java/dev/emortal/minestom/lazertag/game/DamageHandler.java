@@ -81,7 +81,7 @@ public final class DamageHandler {
         this.setSpawnProtection(damager, 0L);
         if (this.hasSpawnProtection(target)) {
             this.spawnShieldIndicator(target.getPosition());
-            damager.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 1f, 2f), Sound.Emitter.self());
+            damager.playSound(Sound.sound(SoundEvent.BLOCK_WOOD_BREAK, Sound.Source.MASTER, 1f, 2f), Sound.Emitter.self());
             return;
         }
 
@@ -98,7 +98,7 @@ public final class DamageHandler {
             return;
         }
 
-        damager.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 2f, 1f), Sound.Emitter.self());
+        damager.playSound(Sound.sound(SoundEvent.BLOCK_BONE_BLOCK_PLACE, Sound.Source.MASTER, 2f, 1f), Sound.Emitter.self());
 
         target.damage(Damage.fromPlayer(damager, damage));
     }

@@ -138,7 +138,7 @@ public final class SpinnyCubeFeature implements LobbyFeature {
         }
 
         private void playCubeSound() {
-            this.instance.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 1.3f, 0.7f), this.cube.getPosition());
+            this.instance.playSound(Sound.sound(SoundEvent.BLOCK_BEACON_AMBIENT, Sound.Source.MASTER, 1.3f, 0.7f), this.cube.getPosition());
         }
 
         private boolean shouldFizz() {
@@ -158,7 +158,7 @@ public final class SpinnyCubeFeature implements LobbyFeature {
         }
 
         private void playFizzSound() {
-            Sound sound = Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 0.3f, this.random.nextFloat() + 1.2f);
+            Sound sound = Sound.sound(SoundEvent.ENTITY_GENERIC_EXTINGUISH_FIRE, Sound.Source.MASTER, 0.3f, this.random.nextFloat() + 1.2f);
             this.instance.playSound(sound, this.cube.getPosition());
         }
 

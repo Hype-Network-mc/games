@@ -32,7 +32,7 @@ public final class ArmorStandsFeature implements LobbyFeature {
             if (!e.getTarget().hasTag(GLASSES_ARMOR_STAND_TAG)) return;
 
             e.getPlayer().setHelmet(SUNGLASSES_HELMET);
-            e.getPlayer().playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 1f, 1f), Sound.Emitter.self());
+            e.getPlayer().playSound(Sound.sound(SoundEvent.ITEM_ARMOR_EQUIP_LEATHER, Sound.Source.MASTER, 1f, 1f), Sound.Emitter.self());
         });
     }
 

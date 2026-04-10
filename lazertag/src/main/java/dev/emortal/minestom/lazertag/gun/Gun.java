@@ -98,7 +98,7 @@ public abstract class Gun {
                         .withTag(AMMO_TAG, 0)
         );
 
-        player.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.PLAYER, 0.7f, 2f));
+        player.playSound(Sound.sound(SoundEvent.BLOCK_ANVIL_LAND, Sound.Source.PLAYER, 0.7f, 2f));
         player.scheduler().submitTask(new Supplier<>() {
             final long startingReloadTicks = Gun.this.itemInfo.reloadTime() / MinecraftServer.TICK_MS;
 
@@ -129,7 +129,7 @@ public abstract class Gun {
 
                 if (ammo != this.lastAmmo) {
                     this.lastAmmo = ammo;
-                    player.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 0.2f, 1f), Sound.Emitter.self());
+                    player.playSound(Sound.sound(SoundEvent.ENTITY_ITEM_PICKUP, Sound.Source.MASTER, 0.2f, 1f), Sound.Emitter.self());
                 }
 
                 Gun.this.renderAmmo(player, percentage, true);
@@ -139,9 +139,9 @@ public abstract class Gun {
     }
 
     protected void playReloadSound(@NotNull Player player) {
-        player.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.PLAYER, 1f, 1f));
+        player.playSound(Sound.sound(SoundEvent.ENTITY_IRON_GOLEM_ATTACK, Sound.Source.PLAYER, 1f, 1f));
         player.scheduler()
-                .buildTask(() -> player.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.PLAYER, 1f, 1f)))
+                .buildTask(() -> player.playSound(Sound.sound(SoundEvent.ENTITY_IRON_GOLEM_ATTACK, Sound.Source.PLAYER, 1f, 1f)))
                 .delay(TaskSchedule.tick(3))
                 .schedule();
     }

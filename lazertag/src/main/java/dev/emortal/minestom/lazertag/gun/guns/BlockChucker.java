@@ -46,7 +46,7 @@ public final class BlockChucker extends Gun {
             0,
             1,
 
-            Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.PLAYER, 2f, 0.5f)
+            Sound.sound(SoundEvent.BLOCK_BONE_BLOCK_BREAK, Sound.Source.PLAYER, 2f, 0.5f)
     );
 
     public BlockChucker(@NotNull LazerTagGame game) {

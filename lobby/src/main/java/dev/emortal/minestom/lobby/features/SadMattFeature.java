@@ -6,8 +6,9 @@ import net.minestom.server.component.DataComponents;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.PlayerSkin;
-import net.minestom.server.entity.metadata.animal.tameable.CatVariant;
+import net.minestom.server.entity.metadata.avatar.MannequinMeta;
 import net.minestom.server.instance.Instance;
+import net.minestom.server.network.player.ResolvableProfile;
 import org.jetbrains.annotations.NotNull;
 
 public final class SadMattFeature implements LobbyFeature {
@@ -20,12 +21,11 @@ public final class SadMattFeature implements LobbyFeature {
 
     @Override
     public void register(@NotNull Instance instance) {
-        BetterLivingEntity bomNpc = new BetterLivingEntity(EntityType.CAT);
-        bomNpc.set(DataComponents.CAT_VARIANT, CatVariant.RED);
-//        bomNpc.editEntityMeta(MannequinMeta.class, meta -> {
-//            meta.setProfile(new ResolvableProfile(MATT_SKIN));
-//            meta.setCustomNameVisible(true);
-//        });
+        BetterLivingEntity bomNpc = new BetterLivingEntity(EntityType.MANNEQUIN);
+        bomNpc.editEntityMeta(MannequinMeta.class, meta -> {
+            meta.setProfile(new ResolvableProfile(MATT_SKIN));
+            meta.setCustomNameVisible(true);
+        });
         bomNpc.set(DataComponents.CUSTOM_NAME, Component.text("Sad Matt"));
         bomNpc.setInstance(instance, MATT_POS);
     }

@@ -201,13 +201,13 @@ public final class LobbyMatchmakingSession extends MatchmakingSession {
     private void changeToInQueue() {
         this.state = State.IN_QUEUE;
         this.bossBar.name(this.createInQueueName());
-        this.player.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 1f, 1f));
+        this.player.playSound(Sound.sound(SoundEvent.BLOCK_BEACON_ACTIVATE, Sound.Source.MASTER, 1f, 1f));
     }
 
     private void changeToTeleporting() {
         this.state = State.TELEPORTING;
         this.bossBar.name(this.createTeleportingName());
-        this.player.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 1f, 1.5f));
+        this.player.playSound(Sound.sound(SoundEvent.BLOCK_BEACON_POWER_SELECT, Sound.Source.MASTER, 1f, 1.5f));
         this.playedTeleportSound.set(true);
     }
 

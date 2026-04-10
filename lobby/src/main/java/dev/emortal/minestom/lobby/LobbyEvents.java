@@ -10,17 +10,13 @@ import dev.emortal.minestom.lobby.gadget.blaster.InkBlaster;
 import dev.emortal.minestom.lobby.gadget.lobber.BlockLobber;
 import dev.emortal.minestom.lobby.util.CustomModels;
 import dev.emortal.minestom.lobby.util.MusicPlayerInventory;
-import dev.emortal.minestom.lobby.util.entity.BetterEntity;
-import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.minestom.server.component.DataComponents;
-import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
 import net.minestom.server.entity.PlayerHand;
-import net.minestom.server.entity.metadata.animal.tameable.CatVariant;
 import net.minestom.server.event.Event;
 import net.minestom.server.event.EventNode;
 import net.minestom.server.event.item.ItemDropEvent;
@@ -29,9 +25,7 @@ import net.minestom.server.event.trait.CancellableEvent;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
-import net.minestom.server.sound.SoundEvent;
 import net.minestom.server.tag.Tag;
-import net.minestom.server.timer.TaskSchedule;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -82,14 +76,6 @@ public final class LobbyEvents {
 
         player.getInventory().setItemStack(4, SERVER_SELECTOR_ITEM);
         player.getInventory().setItemStack(0, MUSIC_PLAYER_ITEM);
-
-        BetterEntity ging = new BetterEntity(EntityType.CAT);
-        ging.set(DataComponents.CAT_VARIANT, CatVariant.RED);
-        ging.setTicking(false);
-        ging.scheduler().buildTask(() -> {
-            spawnInstance.playSound(Sound.sound(SoundEvent.ENTITY_CAT_AMBIENT, Sound.Source.MASTER, 1f, 1f), player.getPosition());
-        }).repeat(TaskSchedule.tick(90)).schedule();
-        player.addPassenger(ging);
 
         if (!(player instanceof EmortalPlayer emortalPlayer)) return;
 
